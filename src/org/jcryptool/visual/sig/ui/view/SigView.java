@@ -7,7 +7,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 
 public class SigView extends ViewPart {
-
+//asdf
 	private Composite parent;
 
 	/**
