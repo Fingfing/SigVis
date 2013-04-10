@@ -43,7 +43,11 @@ public class SigComposite extends Composite implements PaintListener{
 		grpDokumentAnEmpfnger.setBounds(441, 288, 212, 203);
 		
 		txtSignature = new Text(grpDokumentAnEmpfnger, SWT.BORDER);
-		txtSignature.setBounds(10, 110, 178, 56);
+		txtSignature.setBounds(10, 88, 178, 56);
+		
+		Button btnNewButton = new Button(grpDokumentAnEmpfnger, SWT.NONE);
+		btnNewButton.setBounds(10, 150, 109, 28);
+		btnNewButton.setText("Open in Editor");
 		
 		Button btnReset = new Button(this, SWT.NONE);
 		btnReset.setBounds(582, 497, 94, 28);
