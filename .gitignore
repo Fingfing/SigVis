@@ -1,5 +1,7 @@
 /bin
 *.class
+/.settings
+/sig
 
 # Package Files #
 *.jar
