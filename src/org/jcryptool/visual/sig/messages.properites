@@ -1,0 +1,26 @@
+#English properties file for org.jcryptool.visual.sig
+view.name.0 = Signature Creation
+Visual.name.0 = Signature Creation
+button_h = Hash function
+button_s = Signature function
+SigComposite.description=This visualization demonstrates the creation of a signature for a specific document. A digital signature is an electronic signature that can be used to authenticate the identity of the sender of a message or the signer of a document.
+group_box_name = Received Document
+
+#Hash-Window
+hash_methods = Hash methods
+sha1_description =
+sha256_description =
+sha384_description =
+sha512_description =
+md5_description = 
+
+#Signature-Window 
+signature_methods = Signature methods
+MD2_RSA_description =
+MD5_RSA_description =
+SHA1_DSA_description =
+SHA1_RSA_description =
+
+#Description of the steps
+
+#Mouseover

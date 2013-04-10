@@ -7,11 +7,13 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.jcryptool.visual.sig.Messages;
 
 public class SigComposite extends Composite implements PaintListener{
 	private Text txtHash;
 	private Text txtGeneralDescription;
-	private Text txtStepDescription;
 	private Text txtSignature;
 
 	public SigComposite(Composite parent, int style, SigView view) {
@@ -33,9 +35,8 @@ public class SigComposite extends Composite implements PaintListener{
 		txtGeneralDescription = new Text(this, SWT.BORDER);
 		txtGeneralDescription.setEditable(false);
 		txtGeneralDescription.setBounds(10, 10, 666, 45);
-		
-		txtStepDescription = new Text(this, SWT.BORDER | SWT.V_SCROLL | SWT.MULTI);
-		txtStepDescription.setBounds(204, 118, 271, 147);
+		txtGeneralDescription.setText(Messages.getString("SigComposite.description"));
+		//txtGeneralDescription.setText("SigComposite.description");
 		
 		Group grpDokumentAnEmpfnger = new Group(this, SWT.NONE);
 		grpDokumentAnEmpfnger.setText("Dokument an Empf\u00E4nger");
@@ -47,6 +48,18 @@ public class SigComposite extends Composite implements PaintListener{
 		Button btnReset = new Button(this, SWT.NONE);
 		btnReset.setBounds(582, 497, 94, 28);
 		btnReset.setText("Reset");
+		
+		TabFolder tabFolder = new TabFolder(this, SWT.NONE);
+		tabFolder.setBounds(208, 103, 445, 148);
+		
+		TabItem tbtmNewItem = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem.setText("1");
+		
+		TabItem tbtmNewItem_1 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_1.setText("2");
+		
+		TabItem tbtmNewItem_2 = new TabItem(tabFolder, SWT.NONE);
+		tbtmNewItem_2.setText("3");
 		// TODO Auto-generated constructor stub
 	}
 

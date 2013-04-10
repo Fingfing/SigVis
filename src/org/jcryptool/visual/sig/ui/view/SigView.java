@@ -29,7 +29,7 @@ public class SigView extends ViewPart {
 		sc.setContent(c);
 		sc.setMinSize(c.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 
-		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent.getShell(), "org.jcryptool.visual.ecdh.ecdhview"); //$NON-NLS-1$
+		PlatformUI.getWorkbench().getHelpSystem().setHelp(parent.getShell(), "org.jcryptool.visual.sig.sigview"); //$NON-NLS-1$
 	}
 	/**
 	 * Passing the focus request to the viewer's control.
