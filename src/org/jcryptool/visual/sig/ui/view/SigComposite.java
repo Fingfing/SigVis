@@ -1,3 +1,5 @@
+//This class contains all the code required for the GUI
+
 package org.jcryptool.visual.sig.ui.view;
 
 import org.eclipse.swt.events.PaintEvent;
