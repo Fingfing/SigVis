@@ -2,7 +2,11 @@
 
 package org.jcryptool.visual.sig.ui.view;
 
-import javax.swing.ImageIcon;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -27,76 +31,84 @@ public class SigComposite extends Composite implements PaintListener{
 	private Text txtGeneralDescription;
 	private Text txtSignature;
 	private Canvas canvas1;
-	//private Canvas canvas2;
+//	private Canvas canvas2;
 
+	//Generates all Elements of the GUI
 	public SigComposite(Composite parent, int style, SigView view) {
 		super(parent, style);
 		
-		txtGeneralDescription = new Text(this, SWT.NONE);
-		txtGeneralDescription.setEditable(false);
+		txtGeneralDescription = new Text(this, SWT.MULTI);
+    	txtGeneralDescription.setEditable(false);
 		txtGeneralDescription.setBounds(10, 10, 699, 45);
-		txtGeneralDescription.setText(Messages.getString("SigComposite.description"));
+		txtGeneralDescription.setText(Messages.SigComposite_description);
 		
 		Group grpSignatureGeneration = new Group(this, SWT.NONE);
-		grpSignatureGeneration.setText(Messages.getString("SigComposite.group.text")); //$NON-NLS-1$
+		grpSignatureGeneration.setText(Messages.SigComposite_grpSignatureGeneration); 
 		grpSignatureGeneration.setBounds(10, 61, 699, 529);
+		
+		Label lblHash = new Label(grpSignatureGeneration, SWT.NONE);
+		lblHash.setBounds(34, 230, 136, 14);
+		lblHash.setText(Messages.SigComposite_lblHash); 
 		
 		Button btnHash = new Button(grpSignatureGeneration, SWT.NONE);
 		btnHash.setBounds(34, 164, 136, 60);
-		btnHash.setText("Hashfunktion");
+		btnHash.setText(Messages.SigComposite_btnHash);
 		
 		txtHash = new Text(grpSignatureGeneration, SWT.BORDER);
 		txtHash.setBounds(34, 365, 136, 56);
 		txtHash.setEditable(false);
-		txtHash.setText("Hash");
+		txtHash.setText("<Hash>");
 		
 		Button btnSignature = new Button(grpSignatureGeneration, SWT.NONE);
+		btnSignature.setEnabled(false);
 		btnSignature.setBounds(248, 365, 136, 60);
-		btnSignature.setText("Signaturfunktion");
-		//txtGeneralDescription.setText("SigComposite.description");
+		btnSignature.setText(Messages.SigComposite_btnSignature);
 		
 		Group grpSignedDoc = new Group(grpSignatureGeneration, SWT.NONE);
 		grpSignedDoc.setBounds(463, 207, 212, 261);
-		grpSignedDoc.setText(Messages.getString("SigComposite.grpSignedDoc.text")); //$NON-NLS-1$
+		grpSignedDoc.setText(Messages.SigComposite_grpSignedDoc); 
 		
 		txtSignature = new Text(grpSignedDoc, SWT.BORDER);
-		txtSignature.setText(Messages.getString("SigComposite.txtSignature.text")); //$NON-NLS-1$
+		txtSignature.setText(""); 
 		txtSignature.setBounds(10, 144, 188, 56);
 		
 		Button btnOpenInEditor = new Button(grpSignedDoc, SWT.NONE);
 		btnOpenInEditor.setBounds(10, 206, 109, 28);
-		btnOpenInEditor.setText("Open in Editor");
+		btnOpenInEditor.setText(Messages.SigComposite_btnOpenInEditor);
 		
 		TabFolder tabDescription = new TabFolder(grpSignatureGeneration, SWT.NONE);
 		tabDescription.setBounds(187, 10, 488, 191);
 		
 		TabItem tbtmNewItem = new TabItem(tabDescription, SWT.NONE);
-		tbtmNewItem.setText(Messages.getString("SigComposite.tbtmNewItem.text")); //$NON-NLS-1$
+		tbtmNewItem.setText(Messages.SigComposite_tbtmNewItem_0); 
 		
 		TabItem tbtmNewItem_1 = new TabItem(tabDescription, SWT.NONE);
-		tbtmNewItem_1.setText(Messages.getString("SigComposite.tbtmNewItem_1.text")); //$NON-NLS-1$
+		tbtmNewItem_1.setText(Messages.SigComposite_tbtmNewItem_1); 
 		
 		TabItem tbtmNewItem_2 = new TabItem(tabDescription, SWT.NONE);
-		tbtmNewItem_2.setText(Messages.getString("SigComposite.tbtmNewItem_2.text")); //$NON-NLS-1$
+		tbtmNewItem_2.setText(Messages.SigComposite_tbtmNewItem_2); 
 		
 		Button btnReset = new Button(grpSignatureGeneration, SWT.NONE);
 		btnReset.setBounds(581, 474, 94, 28);
-		btnReset.setText("Reset");
-		
-		Label lblHash = new Label(grpSignatureGeneration, SWT.NONE);
-		lblHash.setBounds(34, 230, 59, 14);
-		lblHash.setText(Messages.getString("SigComposite.lblNewLabel.text")); //$NON-NLS-1$
+		btnReset.setText(Messages.SigComposite_btnReset);
 		
 		Label lblProgress = new Label(grpSignatureGeneration, SWT.NONE);
 		lblProgress.setBounds(492, 481, 83, 14);
-		lblProgress.setText(Messages.getString("SigComposite.lblNewLabel.text_1")); //$NON-NLS-1$
+		lblProgress.setText(Messages.SigComposite_lblProgress);  
 		
 		Label lblSignature = new Label(grpSignatureGeneration, SWT.NONE);
-		lblSignature.setText("New Label");
-		lblSignature.setBounds(248, 431, 59, 14);
+		lblSignature.setText(Messages.SigComposite_lblSignature);
+		lblSignature.setBounds(248, 431, 136, 14);
 		
 		canvas1 = new Canvas(grpSignatureGeneration, SWT.NONE);
 		canvas1.setBounds(70, 88, 64, 281);
+		
+		BufferedImage img = null;
+		try {
+		    img = ImageIO.read(new File("strawberry.jpg"));
+		} catch (IOException e) {
+		}
+
 		
 		//canvas2 = new Canvas(grpSignatureGeneration, SWT.NONE);
 		//canvas2.setBounds(165, 375, 301, 38);
