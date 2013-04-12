@@ -2,17 +2,30 @@
 
 package org.jcryptool.visual.sig.ui.view;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 import org.jcryptool.visual.sig.Messages;
+import org.jcryptool.visual.sig.ui.wizards.HashWizard;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
@@ -20,7 +33,7 @@ import org.eclipse.swt.graphics.Path;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Canvas;
 
-public class SigComposite extends Composite implements PaintListener{
+public class SigComposite extends Composite implements PaintListener,ActionListener{
 	private Text txtHash;
 	private Text txtGeneralDescription;
 	private Text txtSignature;
@@ -29,12 +42,15 @@ public class SigComposite extends Composite implements PaintListener{
 	private Text txtDescriptionOfStep2;
 	private Text txtDescriptionOfStep3;
 	private Text txtDescriptionOfStep4;
+	private Button btnHash;
+	private Button btnSignature;
 //	private Canvas canvas2;
+	SigComposite sc = this;
 
 	//Generates all Elements of the GUI
 	public SigComposite(Composite parent, int style, SigView view) {
 		super(parent, style);
-		
+		sc = this;
 		//The color for the textboxes
 		Color grey = new Color(Display.getCurrent(), 220, 220, 220);
 		
@@ -55,16 +71,28 @@ public class SigComposite extends Composite implements PaintListener{
 		lblHash.setBounds(34, 230, 136, 14);
 		lblHash.setText(Messages.SigComposite_lblHash); 
 		
-		Button btnHash = new Button(grpSignatureGeneration, SWT.NONE);
+		btnHash = new Button(grpSignatureGeneration, SWT.NONE);
 		btnHash.setBounds(34, 164, 136, 60);
 		btnHash.setText(Messages.SigComposite_btnHash);
+		
+		
+		
+//		Listener listener = new Listener() {
+//		      public void handleEvent(Event event) {
+//		    	  btnHash.setText("Clicked");
+//		    	  HashWizard hw = new HashWizard(.this, SWT.BORDER);
+//		    	  hw.setVisible(true);
+//		      }
+//		    };
+//		    
+//		btnHash.addListener(SWT.Selection, listener);
 		
 		txtHash = new Text(grpSignatureGeneration, SWT.BORDER);
 		txtHash.setBounds(34, 365, 136, 56);
 		txtHash.setEditable(false);
 		txtHash.setText("<Hash>");
 		
-		Button btnSignature = new Button(grpSignatureGeneration, SWT.NONE);
+		btnSignature = new Button(grpSignatureGeneration, SWT.NONE);
 		btnSignature.setEnabled(false);
 		btnSignature.setBounds(248, 365, 136, 60);
 		btnSignature.setText(Messages.SigComposite_btnSignature);
@@ -135,7 +163,7 @@ public class SigComposite extends Composite implements PaintListener{
 		canvas1 = new Canvas(grpSignatureGeneration, SWT.NONE);
 		canvas1.setBounds(70, 88, 64, 281);
 
-		
+		createEvents();
 		//canvas2 = new Canvas(grpSignatureGeneration, SWT.NONE);
 		//canvas2.setBounds(165, 375, 301, 38);
 		
@@ -170,4 +198,34 @@ public class SigComposite extends Composite implements PaintListener{
         gc.dispose(); 
         
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		MessageBox messageBox = new MessageBox(new Shell(Display.getCurrent()), SWT.ICON_INFORMATION
+                | SWT.OK);
+        messageBox.setText("Click"); 
+        messageBox.setMessage("Click"); 
+        messageBox.open();
+		
+	}
+	
+	public void createEvents() {
+		btnHash.addSelectionListener(new SelectionListener() {
+            public void widgetDefaultSelected(SelectionEvent e) {
+            }
+ 		  public void widgetSelected(SelectionEvent e) {
+                try {
+                    
+                    HashWizard wiz = new HashWizard();
+                    WizardDialog dialog = new WizardDialog(new Shell(Display.getCurrent()), wiz);
+                    if (dialog.open() == Window.OK) {
+                        btnSignature.setEnabled(true);
+                    }
+                } catch (Exception ex) {
+                    //LogUtil.logError(SigPlugin.PLUGIN_ID, ex);
+                }
+            }
+        });
+	}
+	
 }
