@@ -7,6 +7,10 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.print.DocFlavor.URL;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -31,11 +35,18 @@ public class SigComposite extends Composite implements PaintListener{
 	private Text txtGeneralDescription;
 	private Text txtSignature;
 	private Canvas canvas1;
+	private Text txtDescriptionOfStep1;
+	private Text txtDescriptionOfStep2;
+	private Text txtDescriptionOfStep3;
+	private Text txtDescriptionOfStep4;
 //	private Canvas canvas2;
 
 	//Generates all Elements of the GUI
 	public SigComposite(Composite parent, int style, SigView view) {
 		super(parent, style);
+		
+		//The color for the textboxes
+		Color grey = new Color(Display.getCurrent(), 220, 220, 220);
 		
 		txtGeneralDescription = new Text(this, SWT.MULTI);
     	txtGeneralDescription.setEditable(false);
@@ -45,6 +56,10 @@ public class SigComposite extends Composite implements PaintListener{
 		Group grpSignatureGeneration = new Group(this, SWT.NONE);
 		grpSignatureGeneration.setText(Messages.SigComposite_grpSignatureGeneration); 
 		grpSignatureGeneration.setBounds(10, 61, 699, 529);
+		
+		Button btnDocumentTemp = new Button(grpSignatureGeneration, SWT.NONE);
+		btnDocumentTemp.setBounds(34, 64, 136, 41);
+		btnDocumentTemp.setText(Messages.SigComposite_btnDocumentTemp);
 		
 		Label lblHash = new Label(grpSignatureGeneration, SWT.NONE);
 		lblHash.setBounds(34, 230, 136, 14);
@@ -82,11 +97,38 @@ public class SigComposite extends Composite implements PaintListener{
 		TabItem tbtmNewItem = new TabItem(tabDescription, SWT.NONE);
 		tbtmNewItem.setText(Messages.SigComposite_tbtmNewItem_0); 
 		
+		txtDescriptionOfStep1 = new Text(tabDescription, SWT.MULTI);
+		txtDescriptionOfStep1.setBackground(grey);
+		txtDescriptionOfStep1.setEditable(false);
+		txtDescriptionOfStep1.setText(Messages.SigComposite_txtDescriptionOfStep1);
+		tbtmNewItem.setControl(txtDescriptionOfStep1);
+		
 		TabItem tbtmNewItem_1 = new TabItem(tabDescription, SWT.NONE);
 		tbtmNewItem_1.setText(Messages.SigComposite_tbtmNewItem_1); 
 		
+		txtDescriptionOfStep2 = new Text(tabDescription, SWT.NONE);
+		txtDescriptionOfStep2.setBackground(grey);
+		txtDescriptionOfStep2.setEditable(false);
+		txtDescriptionOfStep2.setText(Messages.SigComposite_txtDescriptionOfStep2);
+		tbtmNewItem_1.setControl(txtDescriptionOfStep2);
+		
 		TabItem tbtmNewItem_2 = new TabItem(tabDescription, SWT.NONE);
 		tbtmNewItem_2.setText(Messages.SigComposite_tbtmNewItem_2); 
+		
+		txtDescriptionOfStep3 = new Text(tabDescription, SWT.NONE);
+		txtDescriptionOfStep3.setBackground(grey);
+		txtDescriptionOfStep3.setEditable(false);
+		txtDescriptionOfStep3.setText(Messages.SigComposite_txtDescriptionOfStep3);
+		tbtmNewItem_2.setControl(txtDescriptionOfStep3);
+		
+		TabItem tbtmNewItem_3 = new TabItem(tabDescription, SWT.NONE);
+		tbtmNewItem_3.setText(Messages.SigComposite_tbtmNewItem_3);
+		
+		txtDescriptionOfStep4 = new Text(tabDescription, SWT.NONE);
+		txtDescriptionOfStep4.setBackground(grey);
+		txtDescriptionOfStep4.setEditable(false);
+		txtDescriptionOfStep4.setText(Messages.SigComposite_txtDescriptionOfStep4);
+		tbtmNewItem_3.setControl(txtDescriptionOfStep4);
 		
 		Button btnReset = new Button(grpSignatureGeneration, SWT.NONE);
 		btnReset.setBounds(581, 474, 94, 28);
@@ -102,12 +144,6 @@ public class SigComposite extends Composite implements PaintListener{
 		
 		canvas1 = new Canvas(grpSignatureGeneration, SWT.NONE);
 		canvas1.setBounds(70, 88, 64, 281);
-		
-		BufferedImage img = null;
-		try {
-		    img = ImageIO.read(new File("strawberry.jpg"));
-		} catch (IOException e) {
-		}
 
 		
 		//canvas2 = new Canvas(grpSignatureGeneration, SWT.NONE);
